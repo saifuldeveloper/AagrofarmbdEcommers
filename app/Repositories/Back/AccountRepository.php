@@ -39,7 +39,12 @@ class AccountRepository
         $input = $request->all();
         $data = Auth::guard('admin')->user();
         if ($file = $request->file('photo')) {
-            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file,'/assets/images',$data,'/assets/images/','photo');
+            $directory = public_path('assets/images/user/');
+            $existingFilename = $data->photo;
+            ImageHelper::deleteFile($directory . $existingFilename);
+            $uploadedFile = $request->file('photo');
+            $newFilename = ImageHelper::saveFile($uploadedFile, $directory);
+            $input['photo'] = $newFilename;
         }
         $data->update($input);
     }

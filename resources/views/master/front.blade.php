@@ -82,7 +82,7 @@ body_theme1
 
 <!-- Header-->
 <header class="site-header navbar-sticky">
-    <div class="menu-top-area">
+    {{-- <div class="menu-top-area">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
@@ -115,7 +115,7 @@ body_theme1
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
   <!-- Topbar-->
     <div class="topbar">
         <div class="container">

@@ -88,7 +88,7 @@
                             <a class="dropdown-toggle profile-pic" data-toggle="dropdown"
                                 href="{{ route('back.dashboard') }}" aria-expanded="false">
                                 <div class="avatar-sm avatar avatar-sm">
-                                    <img src="{{ Auth::guard('admin')->user()->photo ? asset('assets/images/' . Auth::guard('admin')->user()->photo) : asset('assets/images/noimage.png') }}"
+                                    <img src="{{ Auth::guard('admin')->user()->photo ? asset('assets/images/user/' . Auth::guard('admin')->user()->photo) : asset('assets/images/noimage.png') }}"
                                         alt="..." class="avatar-img rounded-circle">
                                 </div>
                             </a>
@@ -96,7 +96,7 @@
                                 <li>
                                     <div class="user-box">
                                         <div class="avatar-lg"><img
-                                                src="{{ Auth::guard('admin')->user()->photo ? asset('assets/images/' . Auth::guard('admin')->user()->photo) : asset('assets/images/noimage.png') }}"
+                                                src="{{ Auth::guard('admin')->user()->photo ? asset('assets/images/user/' . Auth::guard('admin')->user()->photo) : asset('assets/images/noimage.png') }}"
                                                 alt="image profile" class="avatar-img rounded"></div>
 
                                         <div class="u-text">
@@ -133,7 +133,7 @@
                 <div class="sidebar-content">
                     <div class="user">
                         <div class="avatar-sm float-left mr-2">
-                            <img src="{{ Auth::guard('admin')->user()->photo ? asset('assets/images/' . Auth::guard('admin')->user()->photo) : asset('assets/images/noimage.png') }}"
+                            <img src="{{ Auth::guard('admin')->user()->photo ? asset('assets/images/user/' . Auth::guard('admin')->user()->photo) : asset('assets/images/noimage.png') }}"
                                 alt="..." class="avatar-img rounded-circle">
                         </div>
                         <div class="info">
