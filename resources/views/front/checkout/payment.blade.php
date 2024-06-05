@@ -70,6 +70,18 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="checkout-address1">{{ __('Shipping  ') }} </label>
+                                        <select name="shipping_charge" id="shipping-charge" class="form-control">
+                                            @foreach ($shippings as $item)
+                                                <option value="{{ $item->price }}">{{ $item->title }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
 
                         <h6>{{ __('Pay with') }} :</h6>
@@ -245,5 +257,26 @@
 
             });
         });
+
+
+
+         //    shipping calucation
+            var selectElement = document.getElementById('shipping-charge');
+
+            selectElement.addEventListener('change', function() {
+
+            var selectedValue = parseFloat(this.value);
+
+            var shippingPriceElements = document.querySelector('.shipping_price_set').innerText=selectedValue;
+            var grandTotalElement = document.querySelector('.grand_total_set');
+            var grandTotalText = grandTotalElement.innerText;
+            var grandTotalNumber = parseFloat(grandTotalText.replace(/[^\d.]/g, ''));
+            var total =grandTotalNumber + selectedValue;
+            var grandTotalElement = document.querySelector('.grand_total_set').innerText=total;
+
+            });
+
+
+
     </script>
 @endsection

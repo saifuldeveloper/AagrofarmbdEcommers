@@ -251,27 +251,23 @@
                                                             </td>
                                                         </tr>
                                                     @endif
-                                                    @if (json_decode($order->shipping, true))
-                                                        @php
-                                                            $shipping = json_decode($order->shipping, true);
-                                                        @endphp
-                                                        <tr>
-                                                            <td style="width: 60%"></td>
-                                                            <td></td>
-                                                            <td style="width: 10%">
-                                                                <span class="text-muted">{{ __('Shipping') }}</span>
-                                                            </td>
-                                                            <td style="width: 10%; text-align:center">
-                                                                <span>
-                                                                    @if ($setting->currency_direction == 1)
-                                                                        {{ $order->currency_sign }}{{ round($shipping['price'] * $order->currency_value, 2) }}
-                                                                    @else
-                                                                        {{ round($shipping['price'] * $order->currency_value, 2) }}{{ $order->currency_sign }}
-                                                                    @endif
-
-                                                                </span>
-                                                            </td>
-                                                        </tr>
+                                                    @if (json_decode($order->shipping_info, true))
+                                                    @php
+                                                        $shipping = json_decode($order->shipping_info, true);
+                                                    @endphp
+                                                    <tr>
+                                                        <td style="width: 60%"></td>
+                                                        <td></td>
+                                                        <td style="width: 10%">
+                                                            <span class="text-muted">{{ __('Shipping') }}</span>
+                                                        </td>
+                                                        <td style="width: 10%; text-align:center">
+                                                            <span>
+                                                              {{ $shipping['shipping_charge'] }}
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                 @endif
                                                     @endif
                                                     @if (json_decode($order->state_price, true))
                                                         <tr>

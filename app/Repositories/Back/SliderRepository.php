@@ -32,14 +32,24 @@ class SliderRepository
      * @return void
      */
 
-    public function update($slider, $request)
+     public function update($slider, $request)
     {
         $input = $request->all();
         if ($file = $request->file('photo')) {
-            $input['photo'] = ImageHelper::handleUpdatedUploadedImage($file,'/assets/images/',$slider,'/assets/images/','photo');
+                $directory = public_path('assets/images');
+                $uploadedFile = $file;
+                $existingFilename = $slider->photo; 
+                ImageHelper::deleteFile($directory . $existingFilename);
+                $newFilename = ImageHelper::saveFile($uploadedFile, $directory);
+                $input['photo'] = $newFilename;
         }
         if ($file = $request->file('logo')) {
-            $input['logo'] = ImageHelper::handleUpdatedUploadedImage($file,'/assets/images/',$slider,'/assets/images/','logo');
+            $directory = public_path('assets/images');
+            $uploadedFile = $file;
+            $existingFilename = $slider->logo; 
+            ImageHelper::deleteFile($directory . $existingFilename);
+            $newFilename = ImageHelper::saveFile($uploadedFile, $directory);
+            $input['logo'] = $newFilename;
         }
         $slider->update($input);
     }

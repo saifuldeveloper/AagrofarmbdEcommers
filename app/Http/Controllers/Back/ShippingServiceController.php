@@ -53,8 +53,8 @@ class ShippingServiceController extends Controller
     public function store(ShippingServiceRequest $request)
     {
         $input = $request->all();
-        $curr = Currency::where('is_default',1)->first();
-        $input['price'] = $request->price / $curr->value;
+        // $curr = Currency::where('is_default',1)->first();
+        $input['price'] = $request->price;
 
         ShippingService::create($input);
 
@@ -83,7 +83,7 @@ class ShippingServiceController extends Controller
     public function status($id,$status)
     {
         ShippingService::find($id)->update(['status' => $status]);
-        ShippingService::where('id','!=',$id)->where('id','!=',1)->update(['status' => 0]);
+        ShippingService::where('id','!=',$id)->where('id','=',1)->update(['status' => 0]);
         
         return redirect()->route('back.shipping.index')->withSuccess(__('Status Updated Successfully.'));
     }
@@ -98,18 +98,18 @@ class ShippingServiceController extends Controller
     public function update(ShippingServiceRequest $request, ShippingService $shipping)
     {
         $input = $request->all();
-        $curr = Currency::where('is_default',1)->first();
-        if($shipping->id == 1){
-            if($request->is_condition){
-                $input['is_condition'] = 1;
-                $input['minimum_price'] = $request->minimum_price / $curr->value;
-            }else{
-                $input['is_condition'] = 0;
-                $input['minimum_price'] = 0;
-            }
-        }
+        // $curr = Currency::where('is_default',1)->first();
+        // if($shipping->id == 1){
+        //     if($request->is_condition){
+        //         $input['is_condition'] = 1;
+        //         $input['minimum_price'] = $request->minimum_price / $curr->value;
+        //     }else{
+        //         $input['is_condition'] = 0;
+        //         $input['minimum_price'] = 0;
+        //     }
+        // }
         
-        $input['price'] = $request->price / $curr->value;
+        $input['price'] = $request->price;
 
         $shipping->update($input);
 

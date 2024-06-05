@@ -4,11 +4,7 @@
             {{ $data->title }}
         </td>
         <td>
-            @if ($data->id != 1)
-            {{ $data->price == 0  ? __('Free') : PriceHelper::adminCurrencyPrice($data->price) }}
-            @else
-            {{$data->id == 1 && $data->is_condition == 1 ? PriceHelper::adminCurrencyPrice($data->minimum_price). ' Up Condition' : 'Free'}}
-            @endif
+            {{  $data->price }}
         </td>
         <td>
 

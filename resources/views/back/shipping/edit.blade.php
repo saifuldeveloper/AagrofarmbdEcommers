@@ -66,10 +66,8 @@
                                                 <span
                                                     class="input-group-text">{{ PriceHelper::adminCurrency() }}</span>
                                             </div>
-                                            <input type="text" id="price"
-                                                name="price" class="form-control"
-                                                placeholder="{{ __('Enter Price') }}"
-                                                value="{{ PriceHelper::setPrice($shipping->price) }}" >
+											<input type="text" id="price" name="price" class="form-control"
+											placeholder="{{ __('Enter Price') }}" value="{{ $shipping->price }}">
                                         </div>
                                     </div>
 									@endif

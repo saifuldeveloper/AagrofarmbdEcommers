@@ -197,6 +197,48 @@ class PriceHelper
     }
 
 
+    // public static function OrderTotal($order,$trns=null)
+    // {
+    //     $cart = json_decode($order->cart,true);
+
+    //     $total_tax = 0;
+    //     $cart_total = 0;
+    //     $total = 0;
+
+    //     foreach($cart as $key => $item){
+    //         $total += ($item['main_price'] + $item['attribute_price']) * $item['qty'];
+    //         $cart_total = $total;
+    //         if(Item::where('id',$key)->exists()){
+    //             $item = Item::findOrFail($key);
+    //             if(isset($item)){
+    //                 if($item && $item->tax){
+    //                     $total_tax += $item::taxCalculate($item);
+    //                 }
+    //             }
+    //         }
+    //     }
+
+    //     $shipping = [];
+    //     if(json_decode($order->shipping)){
+    //         $shipping = json_decode($order->shipping,true);
+    //     }
+
+    //     $discount = [];
+    //     if(json_decode($order->discount)){
+    //         $discount = json_decode($order->discount,true);
+    //     }
+
+    //     $grand_total = ($cart_total + ($shipping?$shipping['price']:0)) + $total_tax;
+    //     $grand_total = $grand_total - ($discount ? $discount['discount'] : 0);
+    //     $grand_total = $grand_total + $order->state_price;
+
+    //     $total_amount = round($grand_total * $order->currency_value,2);
+    //     if(!$trns){
+    //         $total_amount = self::testPrice($total_amount);
+    //     }
+
+    //     return $total_amount;
+    // }
     public static function OrderTotal($order,$trns=null)
     {
         $cart = json_decode($order->cart,true);
@@ -217,10 +259,14 @@ class PriceHelper
                 }
             }
         }
-
         $shipping = [];
         if(json_decode($order->shipping)){
             $shipping = json_decode($order->shipping,true);
+        }
+        $shipping_info =[];
+        if(json_decode($order->shipping_info)){
+            $shipping_info = json_decode($order->shipping_info,true);
+            $shipping_charge = (float) $shipping_info['shipping_charge'];
         }
 
         $discount = [];
@@ -228,16 +274,13 @@ class PriceHelper
             $discount = json_decode($order->discount,true);
         }
 
-        $grand_total = ($cart_total + ($shipping?$shipping['price']:0)) + $total_tax;
+        $grand_total = $cart_total  + $total_tax;
         $grand_total = $grand_total - ($discount ? $discount['discount'] : 0);
         $grand_total = $grand_total + $order->state_price;
 
         $total_amount = round($grand_total * $order->currency_value,2);
-        if(!$trns){
-            $total_amount = self::testPrice($total_amount);
-        }
-
-        return $total_amount;
+        $total = (float) $total_amount;
+        return $total + $shipping_charge ;
     }
     public static function OrderTotalChart($order)
     {
