@@ -55,6 +55,12 @@ class CartRepository
 
         $item = Item::where('id',$input['item_id'])->select('id','name','photo','discount_price','previous_price','slug','item_type','license_name','license_key', 'stock')->first();
       
+
+        if ($item->stock == 0) {
+            $data = ['message' => 'Product Out Of Stock', 'status' => 'outStock'];
+            return $data;
+        }
+        
         if($item->type == 'normal' ){
             if($item->stock < $request->quantity){
                 $data = [ 'message' => 'Product Out Of Stock', 'status' => 'outStock'];
