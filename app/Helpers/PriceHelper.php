@@ -266,7 +266,11 @@ class PriceHelper
         $shipping_info =[];
         if(json_decode($order->shipping_info)){
             $shipping_info = json_decode($order->shipping_info,true);
-            $shipping_charge = (float) $shipping_info['shipping_charge'];
+            if (isset($shipping_info['shipping_charge'])) {
+                $shipping_charge = (float) $shipping_info['shipping_charge'];
+            } else {
+                $shipping_charge = 0.0;
+            }
         }
 
         $discount = [];
